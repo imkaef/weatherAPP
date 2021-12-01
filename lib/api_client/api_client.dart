@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:friflex_weather_test/entities/weather.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 
 class ApiClient {
   static const String _appid = '80efa84b8887b5dafbe09e3a61f1e425';
