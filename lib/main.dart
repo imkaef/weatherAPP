@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:friflex_weather_test/navigation/navigation.dart';
-import 'package:friflex_weather_test/page/main_screen_widget.dart';
-import 'package:friflex_weather_test/page/weather_screen_widget.dart';
+import 'package:friflex_weather_test/pages/main_screen_widget.dart';
 
 void main() {
   runApp(const MyApp());
