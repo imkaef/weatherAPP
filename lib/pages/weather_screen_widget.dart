@@ -8,9 +8,9 @@ class WeatherSecreenWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.read<WeatherCubit>().city),
+        title: Text(context.read<WeatherCubit>().city.toUpperCase()),
       ),
-      body: _Weather(),
+      body: const _Weather(),
     );
   }
 }
@@ -22,14 +22,14 @@ class _Weather extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<WeatherCubit, WeatherState>(
       builder: (context, state) {
+        final weatherCubit = context.read<WeatherCubit>();
         if (state is WeatherInitial) {
-          context.read<WeatherCubit>().internial();
+          weatherCubit.internial();
           return _DownloadWidget(
             state: state,
           );
         }
         if (state is WeatherLoaded) {
-          // context.read<PicturesCubit>().loadPictures();
           return _LoadedWidget(
             state: state,
           );
@@ -52,7 +52,9 @@ class _DownloadWidget extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-    return Container();
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
   }
 }
 
@@ -70,6 +72,11 @@ class _ErrorWidget extends StatelessWidget {
   final WeatherError state;
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: Text(
+        state.errorMessage,
+        style: const TextStyle(fontSize: 16, color: Colors.red),
+      ),
+    );
   }
 }

@@ -16,14 +16,25 @@ class ApiClient {
     }
   }
 
-  Future<Data> fetchAlbum() async {
-    final response = await http
-        .get(_makeUri({'q': 'Кольчугино', 'appid': '$_appid', 'lang': 'ru'}));
-    if (response.statusCode == 200) {
-      final data = Data.fromJson(jsonDecode(response.body));
-      return data;
-    } else {
-      throw Exception('exception');
+  Future<Data> fetchWeather(String city) async {
+    final response =
+        await http.get(_makeUri({'q': city, 'appid': '$_appid', 'lang': 'ru'}));
+    // if (response.statusCode == 200) {
+    try {
+      if (response.statusCode == 200) {
+        final data = Data.fromJson(jsonDecode(response.body));
+        return data;
+      } else {
+        throw Exception();
+      }
+    } on Exception {
+      rethrow;
     }
+
+    // } else {
+
+    //   throw Exception('exception');
+
+    // }
   }
 }
