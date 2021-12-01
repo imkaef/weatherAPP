@@ -32,7 +32,8 @@ class WeatherList {
   final double pop;
   final Rain? rain;
   final Sys sys;
-  final String dtTxt;
+  @JsonKey(fromJson: parseMovieDateFromString)
+  final DateTime dtTxt;
   WeatherList({
     required this.dt,
     required this.main,
@@ -45,9 +46,14 @@ class WeatherList {
     required this.sys,
     required this.dtTxt,
   });
+
   factory WeatherList.fromJson(Map<String, dynamic> json) =>
       _$WeatherListFromJson(json);
   Map<String, dynamic> toJson() => _$WeatherListToJson(this);
+
+ static DateTime parseMovieDateFromString(String rawDate) {
+    return DateTime.parse(rawDate);
+  }
 }
 
 @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)

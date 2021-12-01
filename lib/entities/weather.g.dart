@@ -38,7 +38,7 @@ WeatherList _$WeatherListFromJson(Map<String, dynamic> json) => WeatherList(
           ? null
           : Rain.fromJson(json['rain'] as Map<String, dynamic>),
       sys: Sys.fromJson(json['sys'] as Map<String, dynamic>),
-      dtTxt: json['dt_txt'] as String,
+      dtTxt: WeatherList.parseMovieDateFromString(json['dt_txt'] as String),
     );
 
 Map<String, dynamic> _$WeatherListToJson(WeatherList instance) =>
@@ -52,7 +52,7 @@ Map<String, dynamic> _$WeatherListToJson(WeatherList instance) =>
       'pop': instance.pop,
       'rain': instance.rain?.toJson(),
       'sys': instance.sys.toJson(),
-      'dt_txt': instance.dtTxt,
+      'dt_txt': instance.dtTxt.toIso8601String(),
     };
 
 Main _$MainFromJson(Map<String, dynamic> json) => Main(
