@@ -45,7 +45,6 @@ class MainScreenWidget extends StatelessWidget {
               TextButton(
                 onPressed: () => textController.text != ''
                     ? {
-                        print(textController.text),
                         Navigator.of(context).pushNamed(
                             NavigationRouteNames.weather,
                             arguments: textController.text)
