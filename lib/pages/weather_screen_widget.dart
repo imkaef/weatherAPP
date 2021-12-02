@@ -106,6 +106,7 @@ class _WeatherCard extends StatelessWidget {
     final weatherCubit = context.read<WeatherCubit>();
     return Container(
       decoration: BoxDecoration(
+        color: const Color(0xfff2f2f2),
         border: Border.all(
           color: const Color(0xffea6e4b),
           width: 1,
@@ -133,7 +134,11 @@ class _WeatherCard extends StatelessWidget {
             ),
             Row(
               children: [
-                weatherCubit.getIcon(weather.weather[0].icon),
+                Container(
+                  child: weatherCubit.getIcon(weather.weather[0].icon),
+                  height: 50,
+                  width: 50,
+                ),
                 Column(
                   children: [
                     Text(
