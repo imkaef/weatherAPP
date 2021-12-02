@@ -11,6 +11,11 @@ class WeatherSecreenWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(context.read<WeatherCubit>().city.toUpperCase()),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(20),
+          ),
+        ),
       ),
       body: const _Weather(),
     );
@@ -107,42 +112,93 @@ class _WeatherCard extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(25),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(dataTime(weather.dtTxt)),
-          ),
-          Text(
-              'Ощущается как ${celsius(weather.main.feelsLike)}\u2103. ${weather.weather[0].description}'),
-          Row(
-            children: [
-              weatherCubit.getIcon(weather.weather[0].icon),
-              Column(
-                children: [
-                  Text('${celsius(weather.main.temp).toString()}\u2103'),
-                  Text(
-                      '${celsius(weather.main.tempMax)}\u2103/${celsius(weather.main.tempMin)}\u2103')
-                ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 6),
+              child: Text(
+                dataTime(weather.dtTxt),
+                style: const TextStyle(fontSize: 14, color: Color(0xffea6e4b)),
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Divider(
-                  color: Colors.black,
+            ),
+            Text(
+              'Ощущается как ${celsius(weather.main.feelsLike)}\u2103. ${weather.weather[0].description}',
+              style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xff48484a)),
+            ),
+            Row(
+              children: [
+                weatherCubit.getIcon(weather.weather[0].icon),
+                Column(
+                  children: [
+                    Text(
+                      '${celsius(weather.main.temp).toString()}\u2103',
+                      style: const TextStyle(
+                        fontSize: 36,
+                        fontWeight: FontWeight.w100,
+                        color: Color(0xff48484a),
+                      ),
+                    ),
+                    Text(
+                      '${celsius(weather.main.tempMax)}\u2103/${celsius(weather.main.tempMin)}\u2103',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Color(0xff48484a),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Column(
-                children: [
-                  Text('Ветер: ${weather.wind.speed.toString()} м/с'),
-                  Text('Влажность: ${weather.main.humidity.toString()}%'),
-                  Text('Видимость: ${weather.visibility / 1000}км'),
-                  Text('Облачность: ${weather.clouds.all.toString()}%'),
-                ],
-              )
-            ],
-          ),
-        ],
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Divider(
+                    color: Colors.black,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Ветер: ${weather.wind.speed.toString()} м/с',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color(0xff48484a),
+                        ),
+                      ),
+                      Text(
+                        'Влажность: ${weather.main.humidity.toString()}%',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color(0xff48484a),
+                        ),
+                      ),
+                      Text(
+                        'Видимость: ${weather.visibility / 1000}км',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color(0xff48484a),
+                        ),
+                      ),
+                      Text(
+                        'Облачность: ${weather.clouds.all.toString()}%',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Color(0xff48484a),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
