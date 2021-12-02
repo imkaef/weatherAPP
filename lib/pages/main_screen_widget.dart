@@ -27,9 +27,7 @@ class MainScreenWidget extends StatelessWidget {
                   fillColor: Colors.white,
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0),
-                    borderSide: const BorderSide(
-                      color: Colors.blue,
-                    ),
+                    borderSide: const BorderSide(),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20.0),

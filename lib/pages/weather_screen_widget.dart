@@ -64,17 +64,7 @@ class _LoadedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Text('Сводка погоды'),
-          Expanded(
-            child: _ListWievBuilder(weatherList: state.data.list),
-          ),
-        ],
-      ),
-    );
+    return _ListWievBuilder(weatherList: state.data.list);
   }
 }
 
@@ -99,36 +89,61 @@ class _WeatherCard extends StatelessWidget {
   String dataTime(DateTime dt) {
     final minutes = dt.minute < 10 ? '0${dt.minute}' : dt.minute.toString();
     final hours = dt.hour < 10 ? '0${dt.hour}' : dt.hour.toString();
-    return '${dt.day}/${dt.month}/${dt.year} $hours:$minutes';
+    return '${dt.day}/${dt.month} $hours:$minutes';
+  }
+
+  int celsius(double temperature) {
+    return (temperature - 273.15).truncate();
   }
 
   @override
   Widget build(BuildContext context) {
     final weatherCubit = context.read<WeatherCubit>();
-    return Column(
-      children: [
-        Text('Температура на: ${dataTime(weather.dtTxt)}'),
-        weather.rain == null
-            ? Text('Дождя нет')
-            : Text(weather.rain!.n3h.toString()),
-        weatherCubit.getIcon(weather.weather[0].icon),
-        Text('Скорость ветра'),
-        Text(weather.wind.speed.toString()),
-        Text('Облака'),
-        Text(weather.clouds.all.toString()),
-        Text('Ощущается как '),
-        Text(weather.main.feelsLike.toString()),
-        Text('температура сейчас'),
-        Text(weather.main.temp.toString()),
-        Text('Макс температура '),
-        Text(weather.main.tempMax.toString()),
-        Text('Мин температура '),
-        Text(weather.main.tempMin.toString()),
-        Text('Дальность видимости'),
-        Text(weather.visibility.toString()),
-        Text('Описание'),
-        Text(weather.weather[0].description),
-      ],
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: const Color(0xffea6e4b),
+          width: 1,
+        ),
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(dataTime(weather.dtTxt)),
+          ),
+          Text(
+              'Ощущается как ${celsius(weather.main.feelsLike)}\u2103. ${weather.weather[0].description}'),
+          Row(
+            children: [
+              weatherCubit.getIcon(weather.weather[0].icon),
+              Column(
+                children: [
+                  Text('${celsius(weather.main.temp).toString()}\u2103'),
+                  Text(
+                      '${celsius(weather.main.tempMax)}\u2103/${celsius(weather.main.tempMin)}\u2103')
+                ],
+              ),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Divider(
+                  color: Colors.black,
+                ),
+              ),
+              Column(
+                children: [
+                  Text('Ветер: ${weather.wind.speed.toString()} м/с'),
+                  Text('Влажность: ${weather.main.humidity.toString()}%'),
+                  Text('Видимость: ${weather.visibility / 1000}км'),
+                  Text('Облачность: ${weather.clouds.all.toString()}%'),
+                ],
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -143,8 +158,11 @@ class _ListWievBuilder extends StatelessWidget {
       shrinkWrap: true,
       itemCount: weatherList.length,
       itemBuilder: (BuildContext context, int index) {
-        return _WeatherCard(
-          weather: weatherList[index],
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: _WeatherCard(
+            weather: weatherList[index],
+          ),
         );
       },
     );

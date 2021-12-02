@@ -14,18 +14,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      //home: const MainScreenWidget(),
-      initialRoute: NavigationRouteNames.mainScreen,
-      routes: {
-        NavigationRouteNames.mainScreen: (context) => const MainScreenWidget(),
-       // NavigationRouteNames.weather: (context) => const WeatherSecreenWidget(),
-      },
-      onGenerateRoute: mainNavigation.onGenerateRoute
-      );
-    }
-    
+        title: 'Flutter Demo',
+        theme: ThemeData(primarySwatch: Colors.orange
+            // const MaterialColor(
+            //     0, {0: Color(0xffea6e4b)}), //Color(0xffea6e4b),
+            ),
+        //home: const MainScreenWidget(),
+        initialRoute: NavigationRouteNames.mainScreen,
+        routes: {
+          NavigationRouteNames.mainScreen: (context) =>
+              const MainScreenWidget(),
+          // NavigationRouteNames.weather: (context) => const WeatherSecreenWidget(),
+        },
+        onGenerateRoute: mainNavigation.onGenerateRoute);
   }
+}
