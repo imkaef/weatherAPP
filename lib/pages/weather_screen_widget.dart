@@ -17,7 +17,10 @@ class WeatherSecreenWidget extends StatelessWidget {
           ),
         ),
       ),
-      body: const _Weather(),
+      body: Container(
+        child: const _Weather(),
+        color: const Color(0xfff2f2f2),
+      ),
     );
   }
 }
@@ -106,7 +109,7 @@ class _WeatherCard extends StatelessWidget {
     final weatherCubit = context.read<WeatherCubit>();
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xfff2f2f2),
+        color: Colors.white,
         border: Border.all(
           color: const Color(0xffea6e4b),
           width: 1,
